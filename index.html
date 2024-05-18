@@ -10,15 +10,17 @@
     <div id="display">
         <div id="ttt">
     <input id="time" readonly></input>
-    <input maxlength="50" id="username" placeholder="Type Your Username"></input>
+    <p id="close">Once your name is set, you can not change it for the session</p>
+    <input maxlength="7" id="username" placeholder="Type Your Username"></input>
+    <button id="setname">Finalize session username</button>
     <br>
 
     <div id="usid">
             <form id="sign">
-      <input id="alias" maxlength="15" placeholder="Chat Name">
-      <input id="pass" type="password" placeholder="Chat Password">
-      <input id="in" type="submit" value="Log In">
-      <input id="up" type="button" value="Create Chat">
+      <input id="alias" maxlength="15" placeholder="ID">
+      <input id="pass" type="password" placeholder="Key">
+      <input id="in" type="submit" value="Resume">
+      <input id="up" type="button" value="Start">
     </form>
     </div>
 <div id="tttt">
@@ -28,7 +30,7 @@
     <div id="comp">
         <form id="said">
             <input minlength="1" maxlength="70" id="say" placeholder="Your Message">
-            <input id="speak" type="submit" value="speak">
+            <input minlength="1" id="speak" type="submit" value="speak">
         </form>
     </div>
 
@@ -44,7 +46,7 @@
         list-style-type: none;
         padding: 0;
         margin: 0;
-        max-width: 642px;
+        max-width: 652px;
         max-height: 560px;
         overflow-y: auto;
         overflow-x: hidden;
@@ -93,6 +95,7 @@
         text-align: center;
         margin-top: 12px;
         margin-bottom: 12px;
+        overflow-x: hidden;
     }
     #content1 {
         width: 100%;
@@ -104,6 +107,7 @@
         text-align: center;
         margin-top: 12px;
         margin-bottom: 12px;
+        overflow-x: hidden;
     }
     button {
         width: 100%;
@@ -112,9 +116,10 @@
         outline: none;
         font-style: italic;
         color: #5E5E5E;
+        overflow-x: hidden;
     }
     body {
-        background: url('bg.svg');
+        background: black;
         background-size: cover;
         color: white;
         font-family: arial;
@@ -125,7 +130,8 @@
         font-size: 50px;
         font-style: normal;
         text-align: center;
-        color: black;
+        color: white;
+        overflow-x: hidden;
     }
     #display {
         position: absolute;
@@ -136,10 +142,9 @@
         height: 700px;
         max-width: 700px;
         max-height: 700px;
-        background: rgba( 255, 255, 255, 0.3 );
-        backdrop-filter: blur( 7px );
-        -webkit-backdrop-filter: blur( 7px );
+        background: black;
         text-align: center;
+        overflow-x: hidden;
     }
 
     #ttt {
@@ -148,10 +153,11 @@
         top: 50%;
         transform: translateX(-50%)translateY(-50%);
         text-align: center;
+        overflow-x: hidden;
     }
 
     #usid {
-        background: rgba( 255, 255, 255, 0.3 );
+        background: rgba( 255, 255, 255, 0.05 );
         backdrop-filter: blur( 7px );
         -webkit-backdrop-filter: blur( 7px );
         color: black;
@@ -163,10 +169,11 @@
         width: 650px;
         text-align: center;
         transform: translateX(-50%);
+        overflow-x: hidden;
     }
 
     #comp {
-        background: rgba( 255, 255, 255, 0.3 );
+        background: rgba( 255, 255, 255, 0.05 );
         backdrop-filter: blur( 7px );
         -webkit-backdrop-filter: blur( 7px );
         color: #5E5E5E;
@@ -179,10 +186,11 @@
         width: 650px;
         text-align: left;
         transform: translateX(-50%);
+        overflow-x: hidden;
     }
 
     #messages {
-        background: rgba( 255, 255, 255, 0.3 );
+        background: rgba( 255, 255, 255, 0.05 );
         backdrop-filter: blur( 7px );
         -webkit-backdrop-filter: blur( 7px );
         color: #5E5E5E;
@@ -195,9 +203,10 @@
         max-width: 642px;
         text-align: left;
         transform: translateX(-50%);
+        overflow-x: hidden;
     }
         .messages {
-                background: rgba( 255, 255, 255, 0.3 );
+                background: rgba( 255, 255, 255, 0.05 );
         backdrop-filter: blur( 7px );
         -webkit-backdrop-filter: blur( 7px );
         color: #5E5E5E;
@@ -210,6 +219,7 @@
         max-width: 642px;
         text-align: left;
         transform: translateX(-50%);
+        overflow-x: hidden;
     }
 </style>
 
@@ -294,16 +304,27 @@ function checkTime(i) {
             }
         });
     });
-
-
-$(document).ready(function() {
-  $("#username").on("keyup", function() {
-    var inputVal = $(this).val();
-    if (inputVal.length > 5) {
+$('input').on('input', function() {
+  if ($(this).val().length > 1) {
+    $('#setname').on('click', function(e){
       $('#usid').show();
       $('#messages').show();
       $('#time').show();
       $('#username').hide();
+      $('#close').hide();
+      $('#setname').hide();
+    });
+    console.log("Input has more than 1 character!");
+  } else {
+    console.log("Input has 1 character or less.");
+  }
+});
+
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
     }
   });
 });
