@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" type="image/x-icon" href="minima.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chat</title>
+    <title>Minima</title>
 </head>
 <body onload="startTime()">
     <div id="display">
@@ -109,7 +110,8 @@
         color: #5E5E5E;
     }
     body {
-        background: black;
+        background: url('bg.svg');
+        background-size: cover;
         color: white;
         font-family: arial;
         margin: 0;
@@ -119,7 +121,7 @@
         font-size: 50px;
         font-style: normal;
         text-align: center;
-        color: white;
+        color: black;
     }
     #display {
         position: absolute;
@@ -128,7 +130,12 @@
         transform: translateX(-50%)translateY(-50%);
         width: 700px;
         height: 700px;
-        background: black;
+        max-width: 700px;
+        max-height: 700px;
+        overflow: auto;
+        background: rgba( 255, 255, 255, 0.3 );
+        backdrop-filter: blur( 7px );
+        -webkit-backdrop-filter: blur( 7px );
         text-align: center;
     }
 
@@ -141,8 +148,10 @@
     }
 
     #usid {
-        background: #0A0A0A;
-        color: #5E5E5E;
+        background: rgba( 255, 255, 255, 0.3 );
+        backdrop-filter: blur( 7px );
+        -webkit-backdrop-filter: blur( 7px );
+        color: black;
         font-size: 12px;
         position: relative;
         font-style: italic;
@@ -154,7 +163,9 @@
     }
 
     #comp {
-        background: #0A0A0A;
+        background: rgba( 255, 255, 255, 0.3 );
+        backdrop-filter: blur( 7px );
+        -webkit-backdrop-filter: blur( 7px );
         color: #5E5E5E;
         font-size: 12px;
         position: relative;
@@ -168,7 +179,9 @@
     }
 
     #messages {
-        background: #0A0A0A;
+        background: rgba( 255, 255, 255, 0.3 );
+        backdrop-filter: blur( 7px );
+        -webkit-backdrop-filter: blur( 7px );
         color: #5E5E5E;
         font-size: 12px;
         position: relative;
@@ -181,7 +194,9 @@
         transform: translateX(-50%);
     }
         .messages {
-        background: #0A0A0A;
+                background: rgba( 255, 255, 255, 0.3 );
+        backdrop-filter: blur( 7px );
+        -webkit-backdrop-filter: blur( 7px );
         color: #5E5E5E;
         font-size: 12px;
         position: relative;
@@ -218,6 +233,7 @@ function checkTime(i) {
     <!-- script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script -->
     <script>
     $('#comp').hide();
+    $('#time').hide();
     $('#usid').hide();
     $('#settin1').hide();
     $('#messages').hide();
@@ -283,6 +299,7 @@ $(document).ready(function() {
     if (inputVal.length > 5) {
       $('#usid').show();
       $('#messages').show();
+      $('#time').show();
       $('#username').hide();
     }
   });
