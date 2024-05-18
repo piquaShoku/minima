@@ -288,6 +288,20 @@ $('#said').on('submit', function(e){
   $('#say').val("");
 });
 
+$(document).on('keydown', function(e) {
+  if (e.which === 13 && $('#said').is(':focus')) { // Check for Enter key and focus on form
+    e.preventDefault();
+
+    // Check if user object and "say" input have valid values
+    if (!user.is || $('#say').val().length <= 1) {
+      return;
+    }
+
+    user.get('said').set($('#username').val() + ' - ' + $('#time').val() + ': ' + $('#say').val());
+    $('#say').val("");
+  }
+});
+
     function UI(say, id){
       var li = $('#' + id).get(0) || $('<div class="messages">').attr('id', id).appendTo('ul');
       $(li).text('@' + say);
@@ -325,14 +339,5 @@ $('input').on('input', function() {
   } else {
     console.log("Input has 1 character or less.");
   }
-});
-
-$(document).ready(function() {
-  $(window).keydown(function(event){
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-  });
 });
     </script>
