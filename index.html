@@ -21,8 +21,9 @@
       <input id="up" type="button" value="Create Chat">
     </form>
     </div>
-
+<div id="tttt">
     <ul></ul>
+</div>
 
     <div id="comp">
         <form id="said">
@@ -44,6 +45,9 @@
         padding: 0;
         margin: 0;
         max-width: 642px;
+        max-height: 560px;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     input {
         width: 100%;
@@ -132,7 +136,6 @@
         height: 700px;
         max-width: 700px;
         max-height: 700px;
-        overflow: auto;
         background: rgba( 255, 255, 255, 0.3 );
         backdrop-filter: blur( 7px );
         -webkit-backdrop-filter: blur( 7px );
@@ -188,7 +191,7 @@
         margin-top: 12px;
         padding: 5px;
         left: 50%;
-        width: 642px;
+        width: 640px;
         max-width: 642px;
         text-align: left;
         transform: translateX(-50%);
