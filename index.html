@@ -24,7 +24,7 @@
     </form>
     </div>
 <div id="tttt">
-    <ul></ul>
+    <ul id="usermess"></ul>
 </div>
 
     <div id="comp">
@@ -36,11 +36,91 @@
 
     <div id="messages">
         <p id="name">Welcome</p>
-        <p id="content">Start the convorsation above</p>
+        <p id="content">Start the convorsation above or select a saved convorsation below</p>
+        <ul id="storageList">
+        </ul>
     </div>
 </div>
 </body>
 </html>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const storageList = document.getElementById('storageList');
+            const idInput = document.getElementById('alias');
+            const passInput = document.getElementById('pass');
+            const upButton = document.getElementById('up');
+            const inButton = document.getElementById('in');
+            
+            // Function to load items from local storage and display them
+            function loadItems() {
+                storageList.innerHTML = ''; // Clear the list first
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    const value = localStorage.getItem(key);
+
+                    // Filter out items that contain the word "gun"
+                    if (key.toLowerCase().includes('gun') || value.toLowerCase().includes('gun')) {
+                        continue;
+                    }
+
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${key}`;
+                    listItem.dataset.key = key; // Store the key in a data attribute
+                    listItem.dataset.value = value; // Store the value in a data attribute
+
+                    // Create a button for copying the li content
+                    const copyButton = document.createElement('button');
+                    copyButton.textContent = 'Copy';
+                    copyButton.className = 'copy-button';
+                    copyButton.addEventListener('click', function(event) {
+                        event.stopPropagation(); // Prevent the li click event
+                        copyToClipboard(`${key}: ${value}`);
+                    });
+
+                    // Append the button to the list item
+                    listItem.appendChild(copyButton);
+                    listItem.addEventListener('click', handleItemClick); // Attach click event to the list item
+                    storageList.appendChild(listItem);
+                }
+            }
+
+            // Function to add a new item to local storage
+            function addItem() {
+                const key = idInput.value;
+                const value = passInput.value;
+
+                if (key && value) {
+                    localStorage.setItem(key, value);
+                    loadItems(); // Refresh the list to show the new item
+                }
+            }
+
+            // Function to handle the click event on list items
+            function handleItemClick(event) {
+                const key = this.dataset.key;
+                const value = this.dataset.value;
+                idInput.value = key;
+                passInput.value = value;
+            }
+
+            // Function to copy text to the clipboard
+            function copyToClipboard(text) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Copied to clipboard');
+            }
+
+            // Event listeners
+            upButton.addEventListener('click', addItem);
+            inButton.addEventListener('click', addItem);
+
+            loadItems(); // Initial load of items
+        });
+    </script>
 <style type="text/css">
     ul {
         list-style-type: none;
@@ -243,7 +323,6 @@ function checkTime(i) {
     <script src="jquery.js"></script>
     <script src="gun.js"></script>
     <script src="sea.js"></script>
-    <!-- script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script -->
     <script>
     $('#comp').hide();
     $('#time').hide();
@@ -251,8 +330,16 @@ function checkTime(i) {
     $('#settin1').hide();
     $('#messages').hide();
 
-    $('#set').on('click', function(){
-      $('#settin1').show();
+    $('#leave1').on('click', function(){
+      $('#usid').show();
+      $('#messages').show();
+      $('#time').show();
+      $('#username').hide();
+      $('#close').hide();
+      $('#setname').hide();
+      $('#tttt').hide();
+      $('#comp').hide();
+      $('#ul').hide();
     });
 
     $('#close').on('click', function(){
@@ -267,11 +354,13 @@ function checkTime(i) {
 
     $('#up').on('click', function(e){
       user.create($('#alias').val(), $('#pass').val());
+      $('#usermess').show();
     });
 
     $('#sign').on('submit', function(e){
       e.preventDefault();
       user.auth($('#alias').val(), $('#pass').val());
+      $('#usermess').show();
     });
 
 
@@ -279,7 +368,6 @@ function checkTime(i) {
 $('#said').on('submit', function(e){
   e.preventDefault();
 
-  // Check if user object and "say" input have valid values
   if (!user.is || $('#say').val().length <= 1) {
     return;
   }
@@ -289,10 +377,9 @@ $('#said').on('submit', function(e){
 });
 
 $(document).on('keydown', function(e) {
-  if (e.which === 13 && $('#said').is(':focus')) { // Check for Enter key and focus on form
+  if (e.which === 13 && $('#said').is(':focus')) {
     e.preventDefault();
 
-    // Check if user object and "say" input have valid values
     if (!user.is || $('#say').val().length <= 1) {
       return;
     }
@@ -303,12 +390,13 @@ $(document).on('keydown', function(e) {
 });
 
     function UI(say, id){
-      var li = $('#' + id).get(0) || $('<div class="messages">').attr('id', id).appendTo('ul');
+      var li = $('#' + id).get(0) || $('<div class="messages">').attr('id', id).appendTo('#usermess');
       $(li).text('@' + say);
     };
 
     gun.on('auth', function(){
       $('#usid').hide();
+      $('#usermess').show();
       $('#username').hide();
       $('#messages').hide();
       $('#comp').show();
@@ -340,4 +428,5 @@ $('input').on('input', function() {
     console.log("Input has 1 character or less.");
   }
 });
+
     </script>
