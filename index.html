@@ -9,11 +9,12 @@
     <div id="display">
         <div id="ttt">
     <input id="time" readonly></input>
-    <input id="username" placeholder="Your Name"></input>
+    <input maxlength="50" id="username" placeholder="Type Your Username"></input>
+    <br>
 
     <div id="usid">
             <form id="sign">
-      <input id="alias" placeholder="Chat Name">
+      <input id="alias" maxlength="15" placeholder="Chat Name">
       <input id="pass" type="password" placeholder="Chat Password">
       <input id="in" type="submit" value="Log In">
       <input id="up" type="button" value="Create Chat">
@@ -24,7 +25,7 @@
 
     <div id="comp">
         <form id="said">
-            <input id="say" placeholder="Your Message">
+            <input minlength="1" maxlength="70" id="say" placeholder="Your Message">
             <input id="speak" type="submit" value="speak">
         </form>
     </div>
@@ -41,6 +42,7 @@
         list-style-type: none;
         padding: 0;
         margin: 0;
+        max-width: 642px;
     }
     input {
         width: 100%;
@@ -174,6 +176,7 @@
         padding: 5px;
         left: 50%;
         width: 642px;
+        max-width: 642px;
         text-align: left;
         transform: translateX(-50%);
     }
@@ -186,6 +189,7 @@
         padding: 5px;
         left: 50%;
         width: 642px;
+        max-width: 642px;
         text-align: left;
         transform: translateX(-50%);
     }
@@ -214,7 +218,9 @@ function checkTime(i) {
     <!-- script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script -->
     <script>
     $('#comp').hide();
+    $('#usid').hide();
     $('#settin1').hide();
+    $('#messages').hide();
 
     $('#set').on('click', function(){
       $('#settin1').show();
@@ -269,4 +275,16 @@ function checkTime(i) {
             }
         });
     });
+
+
+$(document).ready(function() {
+  $("#username").on("keyup", function() {
+    var inputVal = $(this).val();
+    if (inputVal.length > 5) {
+      $('#usid').show();
+      $('#messages').show();
+      $('#username').hide();
+    }
+  });
+});
     </script>
