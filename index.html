@@ -274,12 +274,19 @@ function checkTime(i) {
       user.auth($('#alias').val(), $('#pass').val());
     });
 
-    $('#said').on('submit', function(e){
-      e.preventDefault();
-      if(!user.is){ return }
-      user.get('said').set($('#username').val() + ' - ' + $('#time').val() + ': ' + $('#say').val());
-      $('#say').val("");
-    });
+
+
+$('#said').on('submit', function(e){
+  e.preventDefault();
+
+  // Check if user object and "say" input have valid values
+  if (!user.is || $('#say').val().length <= 1) {
+    return;
+  }
+
+  user.get('said').set($('#username').val() + ' - ' + $('#time').val() + ': ' + $('#say').val());
+  $('#say').val("");
+});
 
     function UI(say, id){
       var li = $('#' + id).get(0) || $('<div class="messages">').attr('id', id).appendTo('ul');
