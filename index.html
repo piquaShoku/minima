@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chat</title>
+</head>
+<body onload="startTime()">
+    <div id="display">
+        <div id="ttt">
+    <input id="time" readonly></input>
+    <input id="username" placeholder="Your Name"></input>
+
+    <div id="usid">
+            <form id="sign">
+      <input id="alias" placeholder="Chat Name">
+      <input id="pass" type="password" placeholder="Chat Password">
+      <input id="in" type="submit" value="Log In">
+      <input id="up" type="button" value="Create Chat">
+    </form>
+    </div>
+
+    <ul></ul>
+
+    <div id="comp">
+        <form id="said">
+            <input id="say" placeholder="Your Message">
+            <input id="speak" type="submit" value="speak">
+        </form>
+    </div>
+
+    <div id="messages">
+        <p id="name">Welcome</p>
+        <p id="content">Start the convorsation above</p>
+    </div>
+</div>
+</body>
+</html>
+<style type="text/css">
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    input {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        font-style: italic;
+        color: #5E5E5E;
+    }
+    #close {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        font-style: normal;
+        color: #5E5E5E;
+    }
+    #set {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        font-style: normal;
+        color: #5E5E5E;
+    }
+
+    #setb {
+        width: 24.6%;
+        background: none;
+        border: none;
+        outline: none;
+        font-style: normal;
+        color: #5E5E5E;
+    }
+
+    #username {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        font-style: italic;
+        color: #5E5E5E;
+        text-align: center;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    #content1 {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        font-style: italic;
+        color: #5E5E5E;
+        text-align: center;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    button {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        font-style: italic;
+        color: #5E5E5E;
+    }
+    body {
+        background: black;
+        color: white;
+        font-family: arial;
+        margin: 0;
+        padding: 0;
+    }
+    #time {
+        font-size: 50px;
+        font-style: normal;
+        text-align: center;
+        color: white;
+    }
+    #display {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%)translateY(-50%);
+        width: 700px;
+        height: 700px;
+        background: black;
+        text-align: center;
+    }
+
+    #ttt {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%)translateY(-50%);
+        text-align: center;
+    }
+
+    #usid {
+        background: #0A0A0A;
+        color: #5E5E5E;
+        font-size: 12px;
+        position: relative;
+        font-style: italic;
+        margin: 0;
+        left: 50%;
+        width: 650px;
+        text-align: center;
+        transform: translateX(-50%);
+    }
+
+    #comp {
+        background: #0A0A0A;
+        color: #5E5E5E;
+        font-size: 12px;
+        position: relative;
+        margin-top: 12px;
+        font-style: italic;
+        padding: 1px;
+        left: 50%;
+        width: 650px;
+        text-align: left;
+        transform: translateX(-50%);
+    }
+
+    #messages {
+        background: #0A0A0A;
+        color: #5E5E5E;
+        font-size: 12px;
+        position: relative;
+        margin-top: 12px;
+        padding: 5px;
+        left: 50%;
+        width: 642px;
+        text-align: left;
+        transform: translateX(-50%);
+    }
+        .messages {
+        background: #0A0A0A;
+        color: #5E5E5E;
+        font-size: 12px;
+        position: relative;
+        margin-top: 12px;
+        padding: 5px;
+        left: 50%;
+        width: 642px;
+        text-align: left;
+        transform: translateX(-50%);
+    }
+</style>
+
+<script> 
+function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('time').value =  h + ":" + m;
+  setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};
+  return i;
+}
+</script>
+    <script src="jquery.js"></script>
+    <script src="gun.js"></script>
+    <script src="sea.js"></script>
+    <!-- script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script -->
+    <script>
+    $('#comp').hide();
+    $('#settin1').hide();
+
+    $('#set').on('click', function(){
+      $('#settin1').show();
+    });
+
+    $('#close').on('click', function(){
+      $('#settin1').hide();
+    });
+
+    var input = document.getElementById("username");
+    var inputValue = input.value;
+
+    var gun = Gun(['http://localhost:8765/gun', 'https://gun-manhattan.herokuapp.com/gun']);
+    var user = gun.user();
+
+    $('#up').on('click', function(e){
+      user.create($('#alias').val(), $('#pass').val());
+    });
+
+    $('#sign').on('submit', function(e){
+      e.preventDefault();
+      user.auth($('#alias').val(), $('#pass').val());
+    });
+
+    $('#said').on('submit', function(e){
+      e.preventDefault();
+      if(!user.is){ return }
+      user.get('said').set($('#username').val() + ' - ' + $('#time').val() + ': ' + $('#say').val());
+      $('#say').val("");
+    });
+
+    function UI(say, id){
+      var li = $('#' + id).get(0) || $('<div class="messages">').attr('id', id).appendTo('ul');
+      $(li).text('@' + say);
+    };
+
+    gun.on('auth', function(){
+      $('#usid').hide();
+      $('#username').hide();
+      $('#messages').hide();
+      $('#comp').show();
+      user.get('said').map().once(UI);
+    });
+
+
+
+     $(function() {
+        $('#username').on('keypress', function(e) {
+            if (e.which == 32){
+                console.log('Space Detected');
+                return false;
+            }
+        });
+    });
+    </script>
