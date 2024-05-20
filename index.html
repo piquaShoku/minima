@@ -24,7 +24,7 @@
     </form>
     </div>
 <div id="tttt">
-    <ul id="usermess"></ul>
+    <ol type="1" id="usermess"></ol>
 </div>
 
     <div id="comp">
@@ -131,6 +131,17 @@
         overflow-y: auto;
         overflow-x: hidden;
     }
+
+    ol {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-width: 652px;
+        max-height: 560px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
     input {
         width: 100%;
         background: none;
@@ -390,7 +401,7 @@ $(document).on('keydown', function(e) {
 });
 
     function UI(say, id){
-      var li = $('#' + id).get(0) || $('<div class="messages">').attr('id', id).appendTo('#usermess');
+      var li = $('#' + id).get(0) || $('<li class="messages">').attr('id', id).appendTo('#usermess');
       $(li).text('@' + say);
     };
 
