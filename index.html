@@ -46,6 +46,18 @@
             top: 50%;
             transform: translateX(-50%) translateY(-50%);
         }
+        #rumlist {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.029) 100%);
+            font-style: normal;
+            font-size: 20px;
+            padding: 20px;
+            width: 120px;
+            text-align: center;
+            position: absolute;
+            bottom: -50%;
+            left: 0;
+            box-shadow: 0px 0px 100px 0px rgba(0,0,0,0.38);
+        }
     </style>
     <div id="display">
     <input id="time" readonly></input>
@@ -55,6 +67,7 @@
     </div>
     <br>
 
+    <div id="somefive">
     <div id="usid">
             <form id="sign">
                 <div id="someone">
@@ -66,7 +79,9 @@
       <input id="up" type="button" value=">">
     </div>
     </form>
+    <button id="rumlist">Rooms</button>
     </div>
+</div>
 
     <div id="somefour">
     <div id="comp">
@@ -80,8 +95,10 @@
 </div>
 
     <div id="messages">
+        <p>Saved Rooms</p>
         <ul id="storageList">
         </ul>
+        <button id="rumcls">Close</button>
     </div>
 </body>
 </html>
@@ -348,29 +365,29 @@
     }
 
     #messages {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.029) 100%);
         backdrop-filter: blur( 7px );
         -webkit-backdrop-filter: blur( 7px );
-        color: #5E5E5E;
-        font-size: 12px;
-        position: relative;
-        margin-top: 12px;
-        padding: 5px;
+        color: white;
+        font-size: 20px;
+        padding: 40px;
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+        position: absolute;
         left: 50%;
-        width: 640px;
-        max-width: 642px;
-        text-align: left;
-        transform: translateX(-50%);
-        overflow-x: hidden;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
         font-family: "Outfit", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 200;
         font-style: normal;
+        box-shadow: 0px 0px 100px 0px rgba(0,0,0,0.38);
+        z-index: 400;
     }
     .messages {
-        background: rgba( 255, 255, 255, 0.05 );
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.029) 100%);
         backdrop-filter: blur( 7px );
         -webkit-backdrop-filter: blur( 7px );
-        color: #5E5E5E;
+        color: white;
         font-size: 20px;
         position: relative;
         padding: 30px;
@@ -389,6 +406,7 @@
         font-optical-sizing: auto;
         font-weight: 200;
         font-style: normal;
+        box-shadow: 0px 0px 100px 0px rgba(0,0,0,0.38);
     }
 </style>
 
@@ -523,7 +541,7 @@ $('input').on('input', function() {
   }
 });
 
-$("#mleft").click(function(e){
+$("#mright").click(function(e){
   e.preventDefault();
   setTimeout(function(){
         $("#tttt").animate({
@@ -532,13 +550,21 @@ $("#mleft").click(function(e){
   });
 });
 
-$("#mright").click(function(e){
+$("#mleft").click(function(e){
   e.preventDefault();
   setTimeout(function(){
         $("#tttt").animate({
             left: "+=450px"
     });
   });
+});
+
+$("#rumlist").click(function(e){
+    $('#messages').show();
+});
+
+$("#rumcls").click(function(e){
+    $('#messages').hide();
 });
 
     </script>
